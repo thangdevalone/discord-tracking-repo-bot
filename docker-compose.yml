@@ -11,6 +11,8 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+    networks:
+      - proxy-network
 
   nginx-proxy:
     image: nginx:alpine
@@ -24,9 +26,9 @@ services:
       - proxy-network
     restart: unless-stopped
     depends_on:
-      -  discord-bot
+      - discord-bot
 
 networks:
   proxy-network:
-    external: false
     name: proxy-network
+    driver: bridge 
